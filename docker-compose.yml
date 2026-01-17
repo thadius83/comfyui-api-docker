@@ -1,0 +1,35 @@
+services:
+  comfyui:
+    build: ./comfyui
+    container_name: comfyui-standalone
+    restart: unless-stopped
+    ports:
+      - "8188:8188"
+    volumes:
+      - /srv/ai/models:/opt/ComfyUI/models
+      - ./output:/opt/ComfyUI/output
+      - /srv/ai/hf-cache:/hf
+      - ./custom_nodes:/opt/ComfyUI/custom_nodes
+      - ./user:/opt/ComfyUI/user
+    environment:
+      - HF_TOKEN=${HF_TOKEN}
+      - PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True,max_split_size_mb:128
+      - HF_HOME=/hf
+      - HUGGINGFACE_HUB_CACHE=/hf/hub
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8188/queue"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 120s
+
+networks:
+  default:
+    driver: bridge
