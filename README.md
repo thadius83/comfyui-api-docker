@@ -20,10 +20,17 @@ HF_TOKEN=hf_your_token_here
 
 4. Start ComfyUI:
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 5. Access ComfyUI at: http://localhost:8188
+
+## Updating ComfyUI
+
+To update ComfyUI to the latest version inside the running container:
+```bash
+./update-comfyui.sh
+```
 
 ## Directory Structure
 
@@ -41,6 +48,6 @@ docker-compose up -d
 
 ## Configuration
 
-- **Base Image**: ComfyUI 0.3.76 with CUDA 12.8
+- **Base Image**: yanwk/comfyui-boot:cu128-slim
 - **Exposed Port**: 8188
 - **GPU**: NVIDIA with compute capability support

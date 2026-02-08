@@ -1,4 +1,4 @@
-FROM ghcr.io/saladtechnologies/comfyui-api:comfy0.3.76-api1.15.0-torch2.8.0-cuda12.8-runtime
+FROM ghcr.io/saladtechnologies/comfyui-api:comfy0.8.2-api1.17.0-torch2.8.0-cuda12.8-runtime
 
 USER root
 RUN apt-get update && apt-get install -y --no-install-recommends \
